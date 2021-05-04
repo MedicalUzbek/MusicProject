@@ -1,0 +1,9 @@
+extends layout
+
+block content
+  h1= title
+  ul 
+    each music, i in musics 
+      li=music.name
+      //- li=music.singer
+      //- li=music.comments
