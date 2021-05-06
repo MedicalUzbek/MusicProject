@@ -2,8 +2,7 @@ extends layout
 
 block content
   h1= title
-  ul 
+  ul.list-group 
     each music, i in musics 
-      li=music.name
-      //- li=music.singer
-      //- li=music.comments
+      li.list-group-item
+        a(href="/music/edit/" + music._id)=music.name

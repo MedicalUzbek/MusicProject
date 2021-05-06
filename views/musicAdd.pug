@@ -2,8 +2,8 @@ extends layout
 
 block content
   h1= title
-  form
-    .form-group
+  form(method="POST" action="/music/add")
+    .form-group.mt-3
         label(for='name') Musiqa qo`shish
         input#name.form-control(type='text' name="name")
     .form-group
