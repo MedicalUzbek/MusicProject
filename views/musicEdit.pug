@@ -2,8 +2,17 @@ extends layout
 
 block content
   h1= title
-  ul.list-group 
-      li.list-group-item  Musiqani nomi  : #{musics.name}
-      li.list-group-item  Qoshiqchi : #{musics.name}
-      li.list-group-item  Izoh  : #{musics.name}
+  form(method="POST" action="/music/edit/" + musics._id)
+    .form-group.mt-3
+        label(for='name') Musiqa o'zgartirish
+        input#name.form-control(type='text' name="name" value=(musics.name))
+    .form-group
+        label(for='singer') Qo`shiqchini o'zgartirish
+        input#singer.form-control(type='text' name="singer" value=musics.singer)
+    .form-group
+        label(for='comment') Izohni o'zgartirish
+        input#comment.form-control(type='text' name="comment"  value=musics.comment)
+   
+    button.btn.btn-success(type='submit') o'zgartirish
 
+  
