@@ -12,6 +12,46 @@ const deleteRouter = require('./routes/musicDelete');
 
 const app = express();
 
+// validatorlar
+const flash = require('connect-flash');
+const validator = require('express-validator');
+const session = require('express-session');
+
+// express-message
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
+
+
+// express-sassion 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
+// validator
+
+app.use(validator({
+  errorFormatter: (param, msg, value) => {
+    let namespace = param.split('.'),
+    root = namespace.shift(),
+    formParam = root
+
+    while(namespace.length){
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return{
+      param: formParam,
+      msg: msg,
+      value: value
+    }
+  }
+}))
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

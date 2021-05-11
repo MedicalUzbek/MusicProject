@@ -10,19 +10,34 @@ router.get('/add', function(req, res, next) {
 
 /* Post users listing. */
 router.post('/add', function(req, res, next) {
-  // console.log('jo`natdik');
-  const music = new  Music();
 
-  music.name = req.body.name;
-  music.singer = req.body.singer;
-  music.comment = req.body.comment;
+  req.checkBody('name', 'iltimos musiqani nomini yozing').notEmpty()
+  req.checkBody('singer', 'iltimos musiqani avtorini yozing').notEmpty()
+  req.checkBody('comment', 'iltimos musiqani izohini yozing').notEmpty()
 
-  music.save((err) => {
-    if(err) console.log(err);
-    else{
-      res.redirect('/')
-    }
+  const errors = req.validationErrors()
+
+  if(errors){
+    res.render('musicAdd', {
+      title: "Musiqa qo`shishda validator ishlayapdi",
+      errors : errors
+    })
+  }
+  else{
+    const music = new  Music();
+    music.name = req.body.name;
+    music.singer = req.body.singer;
+    music.comment = req.body.comment;
+
+    music.save((err) => {
+      if(err) console.log(err);
+      else{
+        req.flash('alert alert-success', 'Musiqa qo`shildi')
+        res.redirect('/')
+      }
   })
+  }
+
 });
 
 
