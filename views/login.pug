@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  form(method="POST" action="/register")
+
+    .form-group
+        label(for='username') Usernameingizni yozing
+        input#username.form-control(type='text' name="username")
+    
+    .form-group
+        label(for='password') Parolingizni yozing
+        input#password.form-control(type='password' name="password")
+   
+    button.btn.btn-success(type='submit') Kirish
+
+  
