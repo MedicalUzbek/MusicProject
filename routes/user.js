@@ -25,28 +25,32 @@ router.post('/register', function(req, res, next) {
             errors : errors
         })
     }else{
+            const name = req.body.name
+            const username = req.body.username
+            const email = req.body.email
+            const password = req.body.password
+            const password2 = req.body.password2
 
-        const newuser = new User({
-            name: name,
-            username: username,
-            email: email,
-            password: password,
+
+            const newuser = new User({
+                name: name,
+                username: username,
+                email: email,
+                password: password,
+
         })
     
-        const name = req.body.name
-        const username = req.body.username
-        const email = req.body.email
-        const password = req.body.password
+       
         
         bcrypt.genSalt(10, (err, pass) => {
-            bcrypt.hash(newuser.password, password, pass, (err, hash) => {
+            bcrypt.hash(newuser.password, pass, (err, hash) => {
                 if(err) console.log(err);
                 newuser.password = hash;
                 newuser.save((err) => {
                     if(err) console.log(err);
                     else{
                         req.flash("success", "Ro`yhatdan o`tdingiz");
-                        res.render('/login');
+                        res.redirect('/login');
                     }
                 })
             })
