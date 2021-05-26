@@ -2,8 +2,7 @@ extends layout
 
 block content
   h1= title
-  form(method="POST" action="/register")
-
+  form(method="POST" action="/login")
     .form-group
         label(for='username') Usernameingizni yozing
         input#username.form-control(type='text' name="username")

@@ -17,6 +17,7 @@ const app = express();
 const flash = require('connect-flash');
 const validator = require('express-validator');
 const session = require('express-session');
+const passport = require('passport');
 
 // express-message
 app.use(require('connect-flash')());
@@ -70,6 +71,19 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log('Mongodbga global ulandik');
+});
+
+// passport js ulash 
+
+require('./cf/passport')(passport)
+app.use(passport.initialize());
+app.use(passport.session());
+
+// global router yoqish
+
+app.get("*", (req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
 });
 
 app.use(logger('dev'));

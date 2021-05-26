@@ -7,19 +7,25 @@ html
   body
  
   nav.navbar.navbar-expand-lg.navbar-light.bg-success
-    a.navbar-brand(href='/') Music
-    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
-      span.navbar-toggler-icon
-    #navbarSupportedContent.collapse.navbar-collapse
-      ul.navbar-nav.mr-auto
-        li.nav-item
-          a.nav-link(href='/') Bosh sahifa
-        li.nav-item
-          a.nav-link(href='/music/add') Musiqa qo`shish
-        li.nav-item
-          a.nav-link(href='/register') Ro`yhatdan o`tish
-        li.nav-item
-          a.nav-link(href='/login') Login
+      a.navbar-brand(href='/') Music
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/') Bosh sahifa
+          li.nav-item
+            a.nav-link(href='/music/add') Musiqa qo`shish
+
+      ul.navbar-nav.mr-right 
+        if user 
+          li.nav-item
+            a.nav-link(href='/logout') Chiqish
+        else 
+          li.nav-item
+            a.nav-link(href='/register') Ro`yhatdan o`tish
+          li.nav-item
+            a.nav-link(href='/login') Login 
             
   .container 
     != messages('message', locals)

@@ -5,8 +5,7 @@ const db2 = require('../cf/db');
 
 module.exports = (passport) => {
 
-
-    passport.use(new LocalStrategy(
+  passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findOne({ username: username }, function (err, user) {
       if (err) { return done(err); }
@@ -24,8 +23,17 @@ module.exports = (passport) => {
      })
     });
   }
-));
+  ));
 
+  passport.serializeUser(function(user, done) {
+  done(null, user.id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+      done(err, user);
+    });
+  });
 }
 
 
